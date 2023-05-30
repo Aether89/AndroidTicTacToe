@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lab-4.2</string>
+    <string name="str_txtTitle">Game of TicTacToe</string>
+    <string name="str_btnReset">Reset</string>
+    <string name="str_txtStatus">Status: It\'s the turn of </string>
+    <string name="str_draw">It\'s a Draw</string>
+    <string name="str_winner">The %1$s\'s won!</string>
+    <string name="str_drawStatus">Status: It\'s a Draw</string>
+    <string name="str_winnerStatus">Status: %1$s\'s won!</string>
+    <string name="str_activityPlayerName">Enter the Player\'s name</string>
+    <string name="str_lblPlayerNameX">Name of player "X"</string>
+    <string name="str_lblPlayerNameY">Name of player "O"</string>
+    <string name="str_btn_playerNameSave">Save</string>
+    <string name="str_btnTicTacToeScoresTable">High Score</string>
+    <string name="str_btnTicTacToeIdPlayer">Identify the players</string>
+    <string name="str_player">Player</string>
+    <string name="str_gameWon">Games Won</string>
+    <string name="str_btnScoreReturn">Return to Game</string>
+    <string name="str_namePlayerNull">Null</string>
+    <string name="str_menuQuit">Quit</string>
+
+</resources>

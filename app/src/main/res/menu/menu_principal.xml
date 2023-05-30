@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/lbl_menuRefresh"
+        android:icon="@drawable/ic_action_name"
+        android:onClick="MenuClick"
+        android:title="@string/str_btnReset"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/lbl_menuPlayerID"
+        android:onClick="MenuClick"
+        android:title="@string/str_btnTicTacToeIdPlayer" />
+    <item
+        android:id="@+id/lbl_menuScore"
+        android:onClick="MenuClick"
+        android:title="@string/str_btnTicTacToeScoresTable" />
+    <item
+        android:id="@+id/lbl_menuQuit"
+        android:onClick="MenuClick"
+        android:title="@string/str_menuQuit" />
+</menu>
