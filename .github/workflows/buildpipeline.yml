@@ -1,0 +1,60 @@
+# Name of your workflow
+name: Android Build and Deployment Pipeline
+# Define on which Github event, workflow will trigger
+on:
+  push:
+    branches: [ main ]
+jobs:
+  job1:
+    name: Job
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java' ]
+        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
+        # Use only 'java' to analyze code written in Java, Kotlin or both
+        # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
+        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+    steps:
+      - name: Checkout the code to specific branch
+        uses: actions/checkout@v2
+      # Ajout du JDK 20 pour les besoins du projet
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '20'
+      # Ajout du SDK d'Android pour pouvoir faire builder notre application
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+        # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+      # L'utilité c'est que tout le monde utilise ainsi la même version de Gradle pour éviter des problèmes de comptabilité entre développeur et nos CI
+      # Ici, l'instruction sert à utiliser la version de Gradle contenu dans le projet c'est à dire celle définit dans le gradle-wrapper.properties
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      # Permet de rendre gradlew exécutable dans l'environnement ubuntu sous GitHub Actions
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      # Permet de réaliser un build de l'application
+      - name: Generate app bundle.
+        run: ./gradlew app:bundleRelease --stacktrace
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{ matrix.language }}"
